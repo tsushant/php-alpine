@@ -7,7 +7,6 @@ RUN apk add autoconf build-base
 RUN docker-php-ext-install iconv \
             pcntl \
             zip \
-            iconv \
             pdo_mysql \
             exif
 
