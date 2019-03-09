@@ -10,6 +10,8 @@ RUN docker-php-ext-install iconv \
             pdo_mysql \
             exif
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
   docker-php-ext-configure gd \
     --with-gd \
