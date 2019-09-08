@@ -21,8 +21,8 @@ RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev lib
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
 RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
+    && pecl install imagick redis \
+    && docker-php-ext-enable imagick redis \
     && apk del autoconf g++ libtool make pcre-dev
 
 ADD php.ini /usr/local/etc/php/php.ini
