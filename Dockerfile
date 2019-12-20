@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine3.8
+FROM php:7.4.1-fpm-alpine3.10
 
 RUN apk update && apk add libzip-dev
 
@@ -10,14 +10,11 @@ RUN docker-php-ext-install iconv \
             pdo_mysql \
             exif
 
-RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+RUN apk add --no-cache libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
   docker-php-ext-configure gd \
-    --with-gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-png-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ && \
-  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-  docker-php-ext-install -j${NPROC} gd && \
+    --with-freetype \
+    --with-jpeg && \
+  docker-php-ext-install -j "$(nproc)" gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
 RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
