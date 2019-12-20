@@ -1,3 +1,3 @@
-# php-alpine
+# php-alpine:7.4-xdebug
 
-## PHP 7.4.1 alpine image
+## For Test and Code coverage

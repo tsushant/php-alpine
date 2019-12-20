@@ -1,5 +1,7 @@
 FROM php:7.4.1-fpm-alpine3.10
 
+MAINTAINER Sushant Shah
+
 RUN apk update && apk add libzip-dev
 
 RUN apk add autoconf build-base
@@ -18,8 +20,8 @@ RUN apk add --no-cache libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev &
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
 RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick redis \
-    && docker-php-ext-enable imagick redis \
+    && pecl install imagick redis xdebug \
+    && docker-php-ext-enable imagick redis xdebug \
     && apk del autoconf g++ libtool make pcre-dev
 
 ADD php.ini /usr/local/etc/php/php.ini
