@@ -1,4 +1,4 @@
-FROM php:7.4.7-fpm-alpine3.12
+FROM php:7.4.12-fpm-alpine3.12
 
 RUN apk update && apk add libzip-dev
 
@@ -26,7 +26,5 @@ ADD php.ini /usr/local/etc/php/php.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && chmod +x /usr/bin/composer
-
-RUN composer global require hirak/prestissimo
 
 WORKDIR /app
