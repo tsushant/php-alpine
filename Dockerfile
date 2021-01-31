@@ -1,11 +1,12 @@
 FROM php:7.4.12-fpm-alpine3.12
 
-RUN apk update && apk add libzip-dev
+RUN apk update && apk add libzip-dev icu-dev
 
 RUN apk add autoconf build-base
 
 RUN docker-php-ext-install iconv \
             pcntl \
+            intl \
             zip \
             pdo_mysql \
             exif
