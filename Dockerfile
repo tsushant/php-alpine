@@ -1,13 +1,14 @@
-FROM php:7.4.7-fpm-alpine3.12
+FROM php:7.4.12-fpm-alpine3.12
 
-MAINTAINER Sushant Shah
+LABEL Sushant Shah
 
-RUN apk update && apk add libzip-dev
+RUN apk update && apk add libzip-dev icu-dev
 
 RUN apk add autoconf build-base
 
 RUN docker-php-ext-install iconv \
             pcntl \
+            intl \
             zip \
             pdo_mysql \
             exif
@@ -28,7 +29,5 @@ ADD php.ini /usr/local/etc/php/php.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && chmod +x /usr/bin/composer
-
-RUN composer global require hirak/prestissimo
 
 WORKDIR /app
