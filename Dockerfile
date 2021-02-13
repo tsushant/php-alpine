@@ -1,8 +1,8 @@
-FROM php:7.4.12-fpm-alpine3.12
+FROM php:8.0.2-fpm-alpine3.13
 
-RUN apk update && apk add libzip-dev icu-dev
+LABEL Sushant Shah
 
-RUN apk add autoconf build-base
+RUN apk update && apk add libzip-dev icu-dev autoconf build-base
 
 RUN docker-php-ext-install iconv \
             pcntl \
@@ -18,10 +18,14 @@ RUN apk add --no-cache libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev &
   docker-php-ext-install -j "$(nproc)" gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
-RUN apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick redis \
-    && docker-php-ext-enable imagick redis \
-    && apk del autoconf g++ libtool make pcre-dev
+RUN apk add --update --no-cache imagemagick-dev pcre-dev \
+    && pecl install redis \
+    && docker-php-ext-enable redis
+
+RUN mkdir -p /usr/src/php/ext/imagick; \
+    curl -fsSL https://github.com/Imagick/imagick/archive/06116aa24b76edaf6b1693198f79e6c295eda8a9.tar.gz | tar xvz -C "/usr/src/php/ext/imagick" --strip 1; \
+    docker-php-ext-install imagick \
+    && apk del autoconf pcre-dev build-base
 
 ADD php.ini /usr/local/etc/php/php.ini
 
