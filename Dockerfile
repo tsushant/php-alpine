@@ -1,4 +1,4 @@
-FROM php:8.0.2-fpm-alpine3.13
+FROM php:8.1.2-fpm-alpine3.15
 
 LABEL Sushant Shah
 

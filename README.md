@@ -1,3 +1,3 @@
 # php-alpine
 
-## PHP 8.0.2 alpine13 image
+## PHP 8.1.2 alpine15 image
