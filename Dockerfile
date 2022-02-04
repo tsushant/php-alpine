@@ -15,13 +15,15 @@ RUN apk add --no-cache libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev &
   docker-php-ext-configure gd \
     --with-freetype \
     --with-jpeg && \
-  docker-php-ext-install -j "$(nproc)" gd && \
+  docker-php-ext-install gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
 RUN apk add --update --no-cache imagemagick-dev pcre-dev \
     && pecl install redis imagick \
     && docker-php-ext-enable redis imagick \
     && apk del autoconf pcre-dev build-base
+
+RUN apk add libgomp
 
 ADD php.ini /usr/local/etc/php/php.ini
 
