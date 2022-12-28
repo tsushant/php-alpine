@@ -1,11 +1,12 @@
-FROM php:8.1.2-fpm-alpine3.15
+FROM php:8.2.0-fpm-alpine3.17
 
 LABEL Sushant Shah
 
 RUN apk update && apk add libzip-dev icu-dev autoconf build-base
 
-RUN docker-php-ext-install iconv \
+RUN docker-php-ext-install \
             pcntl \
+            bcmath \
             intl \
             zip \
             pdo_mysql \
@@ -18,7 +19,7 @@ RUN apk add --no-cache libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev &
   docker-php-ext-install gd && \
   apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev zlib-dev
 
-RUN apk add --update --no-cache imagemagick-dev pcre-dev \
+RUN apk add --update --no-cache imagemagick-dev pcre-dev linux-headers \
     && pecl install redis xdebug imagick \
     && docker-php-ext-enable redis xdebug imagick \
     && apk del autoconf pcre-dev build-base

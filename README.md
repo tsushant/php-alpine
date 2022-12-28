@@ -1,3 +1,3 @@
-# php-alpine:8.1-xdebug
+# php-alpine:8.2-xdebug
 
 ## For Test and Code coverage
