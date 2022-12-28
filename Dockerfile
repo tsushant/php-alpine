@@ -1,11 +1,12 @@
-FROM php:8.1.2-fpm-alpine3.15
+FROM php:8.2.0-fpm-alpine3.17
 
 LABEL Sushant Shah
 
 RUN apk update && apk add libzip-dev icu-dev autoconf build-base
 
-RUN docker-php-ext-install iconv \
+RUN docker-php-ext-install \
             pcntl \
+            bcmath \
             intl \
             zip \
             pdo_mysql \
